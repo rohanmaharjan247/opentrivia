@@ -12,6 +12,15 @@
   }
 }
 
+.score span,.timer span{
+  display: block;
+  .score-title, .timer-title{
+    font-size: 10px;
+  }
+}
+
+
+
 .choice-made{
   background-color: hsl(39, 90%, 60%);
 }

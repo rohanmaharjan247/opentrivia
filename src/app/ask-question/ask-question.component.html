@@ -2,16 +2,25 @@
   class="d-flex justify-content-center align-content-center flex-wrap"
   style="height: 60vh"
 >
+
   <div class="question">
+    <div class="d-flex mb-4">
+      <div class="timer">
+        <span class="timer-title">Timer</span>
+        <span class="fs-1">{{ answerTimer }}</span>
+      </div>
+      <div class="score ms-auto align-items-end">
+        <span class="score-title">Score</span>
+        <span class="fs-1">{{ score }}</span>
+      </div>
+    </div>
     <div class="misc d-flex">
       <div class="difficulty">
-        Difficulty {{ triviaQuestion?.difficulty | titlecase }}
+        Difficulty: <span class="fw-bold">{{ triviaQuestion?.difficulty | titlecase }}</span>
       </div>
-      <div class="score m-auto">
-        Score {{ score }}
-      </div>
+
       <div class="category ms-auto">
-        Category {{ triviaQuestion?.category }}
+        Category: <span class="fw-bold">{{ triviaQuestion?.category }}</span>
       </div>
     </div>
 
@@ -26,16 +35,14 @@
             correctChoice && choice === triviaQuestion?.correct_answer
           "
           [innerHtml]="choice"
-        >
-        </div>
+        ></div>
       </div>
       <!-- <div class="col-6">
         <div class="choices correct-choice">{{ triviaQuestion?.correct_answer }}</div>
       </div> -->
     </div>
-    <div class="next-question text-center" *ngIf="showSeconds && seconds > 0">
-      Next Question In {{seconds}} seconds...
+    <div class="next-question text-center" *ngIf="showSeconds && seconds >= 0">
+      Next Question In {{ seconds }} seconds...
     </div>
   </div>
-
 </div>

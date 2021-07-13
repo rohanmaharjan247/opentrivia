@@ -23,10 +23,13 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
 
   score = 0;
 
-  seconds = 3;
+  seconds = 6;
   showSeconds = false;
 
-  secondInterval:any;
+  secondInterval: any;
+
+  answerTimer = 30;
+  answerInterval: any;
 
   constructor(
     private questionService: OpenTriviaService,
@@ -47,12 +50,23 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
     }
   }
 
+  startAnswerTimer() {
+    this.answerInterval = setInterval(() => {
+      if (this.answerTimer > 0) this.answerTimer--;
+      else {
+        this.reset();
+        clearInterval(this.answerInterval);
+      }
+    }, 1000);
+  }
+
   getAnyQuestion() {
     this.questionService
       .getAnyQuestion()
       .pipe(takeUntil(this.toUnsubscribe$))
       .subscribe((data) => {
         this.triviaQuestion = data;
+        this.startAnswerTimer();
         this.reset();
       });
   }
@@ -64,6 +78,7 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.toUnsubscribe$))
         .subscribe((data) => {
           this.triviaQuestion = data;
+          this.startAnswerTimer();
           this.reset();
         });
     }
@@ -74,6 +89,8 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
     this.madeChoice = true;
     this.selectedChoice = choice;
     this.showSeconds = true;
+
+    clearInterval(this.answerInterval);
     if (choice === this.triviaQuestion?.correct_answer) {
       this.madeChoice = false;
       this.correctChoice = true;
@@ -85,10 +102,10 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       if (this.categoryId > 0) this.getCategoryQuestion();
       else this.getAnyQuestion();
-    }, 2000);
+    }, 6000);
   }
 
-  startTimer(){
+  startTimer() {
     this.secondInterval = setInterval(() => {
       this.seconds--;
     }, 1000);
@@ -98,8 +115,10 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
     this.madeChoice = false;
     this.correctChoice = false;
     this.selectedChoice = '';
-    this.seconds = 3;
+    this.seconds = 6;
     this.showSeconds = false;
+    this.answerTimer = 30;
     clearInterval(this.secondInterval);
+  //  clearInterval(this.answerInterval);
   }
 }

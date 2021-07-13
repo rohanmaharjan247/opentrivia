@@ -22,7 +22,8 @@ export class OpenTriviaService {
       .get<Question>(`${this.baseUrl}`, {
         params: new HttpParams()
           .set('amount', String(1))
-          .set('type', 'multiple'),
+          .set('type', 'multiple')
+          .set('difficulty', 'easy'),
       })
       .pipe(
         catchError(this.handleErrores),
@@ -50,7 +51,8 @@ export class OpenTriviaService {
         params: new HttpParams()
           .set('amount', String(1))
           .set('type', 'multiple')
-          .set('category', category),
+          .set('category', category)          
+          .set('difficulty', 'easy'),
       })
       .pipe(
         catchError(this.handleErrores),

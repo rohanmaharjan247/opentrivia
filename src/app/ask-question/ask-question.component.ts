@@ -115,6 +115,7 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
 
     clearInterval(this.answerInterval);
     if (choice === this.triviaQuestion?.correct_answer) {
+
       this.madeChoice = false;
       this.correctChoice = true;
       this.score += 100;
@@ -124,9 +125,13 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
         else this.getAnyQuestion();
       }, 6000);
     } else {
-      this.correctChoice = false;
-      this.gameOver = true;
+      this.correctChoice = true;
+
       this.byWrongAnswer = true;
+      this.startTimer();
+      setTimeout(() => {
+        this.gameOver = true;
+      }, 6000);
     }
   }
 

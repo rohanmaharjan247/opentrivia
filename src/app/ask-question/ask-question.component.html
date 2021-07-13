@@ -48,7 +48,7 @@
           class="next-question text-center"
           *ngIf="showSeconds && seconds >= 0"
         >
-          Next Question In {{ seconds }} seconds...
+          {{ (byWrongAnswer) ? "Game Ending":"Next Question" }} In {{ seconds }} seconds...
         </div>
       </div>
     </ng-container>

@@ -1,13 +1,12 @@
 .vertical-nav {
   position: fixed;
-  width: 200px;
   height: 100%;
+  padding: 0px 3rem;
   background-image: linear-gradient(
     to bottom,
     hsl(243, 67%, 40%),
     hsl(243, 67%, 60%)
   );
-  margin-left: 60px;
 }
 
 .categories {

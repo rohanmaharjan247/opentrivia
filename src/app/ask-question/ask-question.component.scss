@@ -1,0 +1,25 @@
+.question{
+  width: 50rem;
+}
+
+.choices{
+  background-color: hsla(0, 0%, 100%, 0.7);
+  border-radius: 2rem;
+  padding: 10px 20px;
+  &:not(.correct-choice, .choice-made):hover, &:not(.correct-choice, .choice-made):active, &:not(.correct-choice, .choice-made):focus{
+    cursor: pointer;
+    background-color: hsl(0, 0%, 93%);
+  }
+}
+
+.choice-made{
+  background-color: hsl(39, 90%, 60%);
+}
+
+.correct-choice{
+  background-color: greenyellow;
+}
+
+.misc > *{
+  font-size: 12px;
+}

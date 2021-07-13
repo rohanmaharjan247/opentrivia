@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+/*74D6FE 8FD9FC 6FA7E8 9D7F58 6188B3 9FBAD2 2821aa*/
+
+$body-bg: #f9f1e2;
+@import "~bootstrap/scss/bootstrap";
+
+$nav-bg: #2821AA;
+
+body{
+  --bs-font-sans-serif: 'Poppins', sans-serif;
+}

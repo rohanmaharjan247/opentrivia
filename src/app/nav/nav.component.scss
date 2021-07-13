@@ -1,0 +1,28 @@
+.vertical-nav {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom,
+    hsl(243, 67%, 40%),
+    hsl(243, 67%, 60%)
+  );
+  margin-left: 60px;
+}
+
+.categories {
+  list-style-type: none;
+  margin:0;
+  padding: 0;
+  li {
+    margin-top: 20px;
+    text-align: center;
+    a {
+      color: #fff;
+      text-decoration: none;
+      &:hover{
+        color: hsl(256, 100%, 83%)
+      }
+    }
+  }
+}

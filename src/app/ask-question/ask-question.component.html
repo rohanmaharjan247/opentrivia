@@ -1,0 +1,41 @@
+<div
+  class="d-flex justify-content-center align-content-center flex-wrap"
+  style="height: 60vh"
+>
+  <div class="question">
+    <div class="misc d-flex">
+      <div class="difficulty">
+        Difficulty {{ triviaQuestion?.difficulty | titlecase }}
+      </div>
+      <div class="score m-auto">
+        Score {{ score }}
+      </div>
+      <div class="category ms-auto">
+        Category {{ triviaQuestion?.category }}
+      </div>
+    </div>
+
+    <h2 [innerHtml]="triviaQuestion?.question"></h2>
+    <div class="row g-3 mt-3">
+      <div class="col-6" *ngFor="let choice of triviaQuestion?.choices">
+        <div
+          class="choices"
+          (click)="choiceMade(choice)"
+          [class.choice-made]="madeChoice && choice === selectedChoice"
+          [class.correct-choice]="
+            correctChoice && choice === triviaQuestion?.correct_answer
+          "
+          [innerHtml]="choice"
+        >
+        </div>
+      </div>
+      <!-- <div class="col-6">
+        <div class="choices correct-choice">{{ triviaQuestion?.correct_answer }}</div>
+      </div> -->
+    </div>
+    <div class="next-question text-center" *ngIf="showSeconds && seconds > 0">
+      Next Question In {{seconds}} seconds...
+    </div>
+  </div>
+
+</div>

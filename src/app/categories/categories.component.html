@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-3 gy-3" *ngFor="let category of categories">
+    <a [routerLink]="['/trivia', category.id]" class="text-decoration-none text-white">
+      <div class="categories d-flex align-items-center justify-content-center">
+        <h2>
+          {{ category.category }}
+        </h2>
+      </div>
+    </a>
+  </div>
+</div>

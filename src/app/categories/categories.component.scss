@@ -1,0 +1,18 @@
+.categories{
+  padding: 1rem 2rem;
+  background-image: linear-gradient(
+    to bottom,
+    hsl(243, 67%, 40%),
+    hsl(243, 67%, 60%)
+  );
+  height: 200px;
+  text-align: center;
+  transition: background-image 250ms ease-in-out;
+  &:hover{
+    background-image: linear-gradient(
+      to top,
+      hsl(243, 67%, 40%),
+      hsl(243, 67%, 60%)
+    );
+  }
+}

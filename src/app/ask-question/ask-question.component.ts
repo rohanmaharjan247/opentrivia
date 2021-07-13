@@ -31,6 +31,12 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
   answerTimer = 30;
   answerInterval: any;
 
+  gameOver = false;
+  byTime = false;
+  byWrongAnswer = false;
+
+  loading = false;
+
   constructor(
     private questionService: OpenTriviaService,
     private activatedRoute: ActivatedRoute
@@ -54,13 +60,16 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
     this.answerInterval = setInterval(() => {
       if (this.answerTimer > 0) this.answerTimer--;
       else {
-        this.reset();
+        this.gameOver = true;
+        this.byTime = true;
+
         clearInterval(this.answerInterval);
       }
     }, 1000);
   }
 
   getAnyQuestion() {
+    this.loading = true;
     this.questionService
       .getAnyQuestion()
       .pipe(takeUntil(this.toUnsubscribe$))
@@ -68,10 +77,12 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
         this.triviaQuestion = data;
         this.startAnswerTimer();
         this.reset();
+        this.loading = false;
       });
   }
 
   getCategoryQuestion() {
+    this.loading = true;
     if (this.categoryId > 0) {
       this.questionService
         .getCategoryQuestion(String(this.categoryId))
@@ -80,8 +91,20 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
           this.triviaQuestion = data;
           this.startAnswerTimer();
           this.reset();
+          this.loading = false;
         });
     }
+  }
+
+  restart() {
+    this.gameOver = false;
+    this.byTime = false;
+    this.byWrongAnswer = false;
+    this.score = 0;
+    this.reset();
+    clearInterval(this.answerInterval);
+    if(this.categoryId > 0) this.getCategoryQuestion();
+    else this.getAnyQuestion();
   }
 
   choiceMade(choice: string) {
@@ -95,14 +118,16 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
       this.madeChoice = false;
       this.correctChoice = true;
       this.score += 100;
+      this.startTimer();
+      setTimeout(() => {
+        if (this.categoryId > 0) this.getCategoryQuestion();
+        else this.getAnyQuestion();
+      }, 6000);
     } else {
-      this.correctChoice = true;
+      this.correctChoice = false;
+      this.gameOver = true;
+      this.byWrongAnswer = true;
     }
-    this.startTimer();
-    setTimeout(() => {
-      if (this.categoryId > 0) this.getCategoryQuestion();
-      else this.getAnyQuestion();
-    }, 6000);
   }
 
   startTimer() {
@@ -119,6 +144,6 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
     this.showSeconds = false;
     this.answerTimer = 30;
     clearInterval(this.secondInterval);
-  //  clearInterval(this.answerInterval);
+    //  clearInterval(this.answerInterval);
   }
 }

@@ -2,47 +2,74 @@
   class="d-flex justify-content-center align-content-center flex-wrap"
   style="height: 60vh"
 >
-
-  <div class="question">
-    <div class="d-flex mb-4">
-      <div class="timer">
-        <span class="timer-title">Timer</span>
-        <span class="fs-1">{{ answerTimer }}</span>
-      </div>
-      <div class="score ms-auto align-items-end">
-        <span class="score-title">Score</span>
-        <span class="fs-1">{{ score }}</span>
-      </div>
-    </div>
-    <div class="misc d-flex">
-      <div class="difficulty">
-        Difficulty: <span class="fw-bold">{{ triviaQuestion?.difficulty | titlecase }}</span>
-      </div>
-
-      <div class="category ms-auto">
-        Category: <span class="fw-bold">{{ triviaQuestion?.category }}</span>
-      </div>
-    </div>
-
-    <h2 [innerHtml]="triviaQuestion?.question"></h2>
-    <div class="row g-3 mt-3">
-      <div class="col-6" *ngFor="let choice of triviaQuestion?.choices">
+  <ng-container *ngIf="!loading; else loader">
+    <ng-container *ngIf="!gameOver; else gameOverLayout">
+      <div class="question">
+        <div class="d-flex mb-4">
+          <div class="timer">
+            <span class="timer-title">Timer</span>
+            <span class="fs-1">{{ answerTimer }}</span>
+          </div>
+          <div class="score ms-auto align-items-end">
+            <span class="score-title">Score</span>
+            <span class="fs-1">{{ score }}</span>
+          </div>
+        </div>
+        <div class="misc d-flex">
+          <div class="difficulty">
+            Difficulty:
+            <span class="fw-bold">{{
+              triviaQuestion?.difficulty | titlecase
+            }}</span>
+          </div>
+          <div class="category ms-auto">
+            Category:
+            <span class="fw-bold">{{ triviaQuestion?.category }}</span>
+          </div>
+        </div>
+        <h2 [innerHtml]="triviaQuestion?.question"></h2>
+        <div class="row g-3 mt-3">
+          <div class="col-6" *ngFor="let choice of triviaQuestion?.choices">
+            <div
+              class="choices"
+              (click)="choiceMade(choice)"
+              [class.choice-made]="madeChoice && choice === selectedChoice"
+              [class.correct-choice]="
+                correctChoice && choice === triviaQuestion?.correct_answer
+              "
+              [innerHtml]="choice"
+            ></div>
+          </div>
+          <!-- <div class="col-6">
+            <div class="choices correct-choice">{{ triviaQuestion?.correct_answer }}</div>
+          </div> -->
+        </div>
         <div
-          class="choices"
-          (click)="choiceMade(choice)"
-          [class.choice-made]="madeChoice && choice === selectedChoice"
-          [class.correct-choice]="
-            correctChoice && choice === triviaQuestion?.correct_answer
-          "
-          [innerHtml]="choice"
-        ></div>
+          class="next-question text-center"
+          *ngIf="showSeconds && seconds >= 0"
+        >
+          Next Question In {{ seconds }} seconds...
+        </div>
       </div>
-      <!-- <div class="col-6">
-        <div class="choices correct-choice">{{ triviaQuestion?.correct_answer }}</div>
-      </div> -->
-    </div>
-    <div class="next-question text-center" *ngIf="showSeconds && seconds >= 0">
-      Next Question In {{ seconds }} seconds...
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #gameOverLayout>
+  <div class="text-center">
+    <h1>{{ byTime ? "Time Over" : "Wrong Choice" }}</h1>
+    <h2>Game Over</h2>
+    <h3>Score {{ score }}</h3>
+    <button type="button" class="btn btn-primary" (click)="restart()">
+      Restart
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-</div>
+</ng-template>

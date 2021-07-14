@@ -7,7 +7,7 @@
   );
   height: 200px;
   text-align: center;
-  transition: background-image 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
   &:hover{
     background-image: linear-gradient(
       to top,

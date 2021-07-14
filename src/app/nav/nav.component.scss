@@ -9,6 +9,14 @@
   );
 }
 
+.nav-bg-color{
+  background-image: linear-gradient(
+    to right,
+    hsl(243, 67%, 40%),
+    hsl(243, 67%, 60%)
+  );
+}
+
 .categories {
   list-style-type: none;
   margin:0;

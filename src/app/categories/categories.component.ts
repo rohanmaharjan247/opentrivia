@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Category } from '../models/category.model';
 
 @Component({
@@ -112,7 +113,9 @@ export class CategoriesComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private title:Title) {
+    this.title.setTitle('Categories - Quiz Trivia')
+  }
 
   ngOnInit(): void {}
 }

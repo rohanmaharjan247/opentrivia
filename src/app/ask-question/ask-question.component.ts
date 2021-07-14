@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -39,9 +40,11 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
 
   constructor(
     private questionService: OpenTriviaService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private title:Title
   ) {
     this.categoryId = +activatedRoute.snapshot?.params?.id ?? 0;
+    this.title.setTitle('Question - Quiz Trivia')
   }
   ngOnDestroy(): void {
     this.toUnsubscribe$.next();
@@ -62,7 +65,7 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
       else {
         this.gameOver = true;
         this.byTime = true;
-
+        this.title.setTitle('Game Over - Quiz Trivia')
         clearInterval(this.answerInterval);
       }
     }, 1000);
@@ -128,6 +131,7 @@ export class AskQuestionComponent implements OnInit, OnDestroy {
       this.correctChoice = true;
 
       this.byWrongAnswer = true;
+      this.title.setTitle('Game Over - Quiz Trivia')
       this.startTimer();
       setTimeout(() => {
         this.gameOver = true;

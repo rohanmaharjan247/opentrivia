@@ -29,7 +29,7 @@
         </div>
         <h2 [innerHtml]="triviaQuestion?.question"></h2>
         <div class="row g-3 mt-3">
-          <div class="col-6" *ngFor="let choice of triviaQuestion?.choices">
+          <div class="col-sm-12 col-md-6" *ngFor="let choice of triviaQuestion?.choices">
             <div
               class="choices"
               (click)="choiceMade(choice)"
@@ -57,11 +57,11 @@
 
 <ng-template #gameOverLayout>
   <div class="text-center">
-    <h1>{{ byTime ? "Time Over" : "Wrong Choice" }}</h1>
-    <h2>Game Over</h2>
+    <h3>{{ byTime ? "Time Over" : "Wrong Choice" }}</h3>
+    <h1 class="fw-bold">Game Over</h1>
     <h3>Score {{ score }}</h3>
-    <button type="button" class="btn btn-primary" (click)="restart()">
-      Restart
+    <button type="button" class="btn-gradient" (click)="restart()">
+      Try Again
     </button>
   </div>
 </ng-template>

@@ -32,3 +32,15 @@
 .misc > *{
   font-size: 12px;
 }
+
+.btn-gradient{
+  border-radius: 2rem;
+  background-color: hsl(243, 67%, 40%);
+  color: #fff;
+  padding: .475rem 1.5rem;
+  border:none;
+  transition: all 150ms ease;
+  &:hover{
+    background-color: hsl(243, 67%, 60%);
+  }
+}
